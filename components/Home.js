@@ -11,7 +11,8 @@ class Home extends Component {
     // calls the constructor on the component
     super(props);
     this.state = {
-      ingredientsInput: ' '
+      searching: false,
+      ingredientsInput: ' ',
     }
   }
 
@@ -20,7 +21,10 @@ class Home extends Component {
   }
 
   _searchPressed(){
-    this.props.fetchRecipes('bacon, cucumber, banana')
+    this.setState({ searching: true })
+    this.props.fetchRecipes(this.state.ingredientsInput).then(() => {
+      this.setState({ searching: false })
+    })
   }
 
   render(){
@@ -42,7 +46,7 @@ class Home extends Component {
 
         <ScrollView style={styles.recList}>
           {
-            this._recipes().map( recipe => {
+            !this.state.searching && this._recipes().map( recipe => {
               return <View key={recipe.id}>
                 <Image source={ { uri: recipe.image }} style={styles.scrollViewImg} />
                 <Text style={styles.recName}>{recipe.title}</Text>
