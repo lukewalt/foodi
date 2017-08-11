@@ -6,10 +6,6 @@ import { bindActionCreators } from 'redux';
 
 class AppContainer extends Component {
 
-  _addRecipe() {
-    this.props.addRecipe();
-  }
-
   render(){
     return ( <Home {...this.props} /> )
   }
@@ -22,8 +18,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // passes in global state of app to map portions of state to mapDispatchToProps
-export default connect( state => {
-    return {
-      recipeCount: state.recipeCount
-    }
-  }, mapDispatchToProps)(AppContainer);
+export default connect( state => { return {} }, mapDispatchToProps)(AppContainer);
