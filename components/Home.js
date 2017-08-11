@@ -37,7 +37,7 @@ class Home extends Component {
             returnKeyType='search'
             placeholder="Find Recipe"
             onChangeText={ ingredientsInput => this.setState({ingredientsInput})}
-            value={this.state.ingredientsInput}
+            value={this.state.ingredientsInput.toUpperCase()}
           />
           <TouchableHighlight underlayColor='pink' style={styles.button} onPress={() =>  this._searchPressed()}>
             <Text style={styles.colorTwo}>SEARCH</Text>
@@ -52,6 +52,9 @@ class Home extends Component {
                 <Text style={styles.recName}>{recipe.title}</Text>
               </View>
             })
+          }
+          {
+            this.state.searching ? <Text style={styles.recName}>... Searching</Text> : null
           }
         </ScrollView>
       </View>

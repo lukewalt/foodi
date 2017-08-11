@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 0.70,
     backgroundColor: 'white',
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    color: '#444',
+    fontWeight: 'bold',
   },
   recList: {
     margin: 5
