@@ -8,6 +8,7 @@ import reducer from './reducers';
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
 function configureStore(initialState) {
+
   const enhancer = compose(
     applyMiddleware(thunkMiddleware, loggerMiddleware,),
   );

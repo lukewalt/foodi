@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import ReactNative, { Text, View, TouchableHighlight, ScrollView, TextInput, Image } from 'react-native';
 import styles from '../styles/styles';
 import { connect } from 'react-redux';
-import {searchedRecipes} from '../reducers/index';
+import { searchedRecipes } from '../reducers/index';
 
 class Home extends Component {
 
-  _addRecipe() {
-    this.props.addRecipe();
+
+  constructor(props){
+    // calls the constructor on the component
+    super(props);
+    this.state = {
+      ingredientsInput: ' '
+    }
+  }
+
+  _recipes() {
+    return Object.keys(this.props.searchedRecipes).map( key => this.props.searchedRecipes[key] )
   }
 
   _searchPressed(){
@@ -17,16 +26,29 @@ class Home extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>FOODIE</Text>
-        <TextInput></TextInput>
-        <Text style={styles.subTitle}>Recipe Count: {this.props.recipeCount}</Text>
-        <TouchableHighlight underlayColor='pink' style={styles.button} onPress={() =>  this._searchPressed() }>
-          <Text style={styles.colorTwo}>SEARCH</Text>
-        </TouchableHighlight>
-        <TouchableHighlight underlayColor='pink' style={styles.button} onPress={() => this._addRecipe()}>
-          <Text style={styles.colorTwo}>ADD</Text>
-        </TouchableHighlight>
-        <ScrollView>
+        <Text style={styles.text}>FOODi</Text>
+        <View style={styles.searchCont}>
+          <TextInput
+            style={styles.searchInput}
+            returnKeyType='search'
+            placeholder="Find Recipe"
+            onChangeText={ ingredientsInput => this.setState({ingredientsInput})}
+            value={this.state.ingredientsInput}
+          />
+          <TouchableHighlight underlayColor='pink' style={styles.button} onPress={() =>  this._searchPressed()}>
+            <Text style={styles.colorTwo}>SEARCH</Text>
+          </TouchableHighlight>
+        </View>
+
+        <ScrollView style={styles.recList}>
+          {
+            this._recipes().map( recipe => {
+              return <View key={recipe.id}>
+                <Image source={ { uri: recipe.image }} style={styles.scrollViewImg} />
+                <Text style={styles.recName}>{recipe.title}</Text>
+              </View>
+            })
+          }
         </ScrollView>
       </View>
     )
