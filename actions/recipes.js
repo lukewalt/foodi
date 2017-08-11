@@ -12,11 +12,19 @@ export function fetchRecipes(ingredients){
     ].join('&');
 
     return Api.get(`/recipes/findByIngredients?${params}`).then( res => {
-      console.log(res);
+      dispatch(setSearchedRecipes({ recipes: res }))
     }).catch( err => {
       console.log(err);
     })
 
+  }
+}
+
+//
+export function setSearchedRecipes( { recipes }) {
+  return {
+    type: 'SET_SEARCHED_RECIPES',
+    recipes
   }
 }
 

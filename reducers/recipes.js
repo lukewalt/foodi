@@ -3,7 +3,16 @@ import * as types from '../actions/types';
 
 
 export const searchedRecipes = createReducer({}, {
+  [types.SET_SEARCHED_RECIPES](state, action) {
+    // create new state
+    let newState = {};
+    // loop through the action payload that was dispatched and creates a key with rec unique id and value with recipe info as object
+    action.recipes.forEach( recipe => {
+      newState[recipe.id] = recipe;
+    })
+    return newState
 
+  }
 })
 
 export const recipeCount = createReducer(0, {
